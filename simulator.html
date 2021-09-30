@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlatitaYa</title>
+
+    <!--Favicon-->
+    <link rel="icon" type="image/png" href="multimedia/icon.png">
+
+    <!--CSS de Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    
+    <!--Estilo general del sitio-->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="container-fluid">
+        <!--Inicio de navbar de Bootstrap-->
+        <nav class="navbar navbar-expand-lg container-fluid navbar-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html">
+                    <img src="multimedia/menuLogo.png" alt="Logo del sitio" class="menuLogo">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav row text-center" style="width: 50%;">
+                        <li class="nav-item col-4">
+                            <a class="nav-link text-black" href="simulator.html">Simulador</a>
+                        </li>
+                        <li class="nav-item col-4">
+                            <a class="nav-link text-black" href="loans.html">Préstamos</a>
+                        </li>
+                        <li class="nav-item col-4">
+                            <a class="nav-link text-black" href="applicants.html">Solicitantes</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!--Fin de navbar de Bootstrap-->
+    </header>
+
+    <main id="mainSimulator">
+        <h1>Cálculadora de Préstamo</h1>
+        <div id="simulatorContainer">
+            <div id="sectionForm">
+                <form id="simulatorForm" action="">
+                    <label for="productType" class="form-label">Seleccione el tipo de préstamo: </label>
+                    <select name="productType" id="productType">
+                        <option value="simple">Préstamo Simple</option>
+                        <option value="american">Préstamo Americano</option>
+                    </select>
+                    <br>
+                    <br>
+
+                    <div id="amountDiv">
+                        <label for="amountSlider" class="form-label">Seleccione el monto:</label>
+                        <input type="range" class="form-range" id="amountSlider" min="1000" max="100000" step="1000" value="1000">    
+                        <span id="amountTooltip" data-toggle="tooltip" data-placement="top" data-bs-html="true" title="<i id=amountTooltipTitle></i>" data-animation="false"></span>    
+                    </div>
+                    <div class="container">
+                        <div class="row align-items-start">
+                            <div class="col text-start p-0">
+                                $1.000
+                            </div>
+                            <div class="col text-end p-0">
+                                $100.000
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+    
+                    <div id="termDiv">
+                        <label for="termSlider" class="form-label">Seleccione la cantidad de cuotas: </label>
+                        <input type="range" class="form-range" id="termSlider" min="1" max="24" step="1" value="1">
+                        <span id="termTooltip" data-toggle="tooltip" data-placement="top" data-bs-html="true" title="<i id=termTooltipTitle></i>" data-animation="false"></span>    
+                    </div>
+                    <div class="container">
+                        <div class="row align-items-start">
+                            <div class="col text-start p-0">
+                                1
+                            </div>
+                            <div class="col text-end p-0">
+                                24
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+    
+                    <button class="submit btn btn-primary">Solicitar</button>
+                </form>
+            </div>
+                
+
+    
+    
+            <div id="sectionResults">
+                <h2>Resultado de la simulación:</h2>
+                <div id="resultsContainer" class="row justify-content-md-center">
+                    <div class="col-3 ">
+                        <p>Tipo:</p>
+                        <p>Monto:</p>
+                        <p>Plazo:</p>
+                        <p>TEA:</p>
+                        <p>Cuota:</p>
+                        <p>Pago total:</p>
+                    </div>
+                    <div id="valuesContainer" class="col-3 text-end">
+                        <p id="showProductType"></p>
+                        <p id="showAmount"></p>
+                        <p id="showTerm"></p>
+                        <p id="showTEA"></p>
+                        <p id="showFee"></p>
+                        <p id="showTotalPayment"></p>
+                    </div>
+                </div>
+                <p id="totalPayment"></p>
+            </div>
+        </div>
+
+    </main>
+    
+    
+
+    <!--Script de Bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+    <!--Script de JQuery-->
+    <script src="js/jquery-3.6.0.js"></script>
+    
+    <!--Script general del sitio-->
+    <script src="js/main.js"></script>
+</body>
+</html>

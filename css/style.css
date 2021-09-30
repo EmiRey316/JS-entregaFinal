@@ -1,0 +1,112 @@
+@charset "UTF-8";
+/*Estilos generales del sitio e imports del resto de archivos .scss. Este archvio será compilado en css*/
+/*Imports del resto de archivos con estilos particulares*/
+/*Paleta de colores*/
+/*Variables para media queries*/
+/*Estilos para el menú superior o navegador del sitio*/
+header {
+  background-color: #FC2C3C;
+  margin-bottom: 50px; }
+  header .navbar-brand {
+    padding: 0px; }
+  header .menuLogo {
+    width: 230px;
+    height: auto;
+    vertical-align: middle; }
+  header .navbar {
+    padding: 0px; }
+
+#dropdownPrestamos {
+  background-color: #FC2C3C !important; }
+
+@media screen and (min-width: 992px) {
+  #homeMain {
+    margin: 0px 50px;
+    display: grid;
+    grid-template: repeat(2, auto)/repeat(2, 1fr);
+    grid-template-areas: "Titulo ." "Simple Americano";
+    gap: 20px; }
+    #homeMain #contenedorTitulo {
+      grid-area: Titulo;
+      padding-left: 50px; }
+    #homeMain #contenedorPrestamoSimple {
+      grid-area: Simple; }
+    #homeMain #contenedorPrestamoAmericano {
+      grid-area: Americano; } }
+
+#mainSimulator h1 {
+  margin-left: 10%; }
+
+#mainSimulator #simulatorContainer {
+  margin: 50px 5%;
+  padding: 2% 5%;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  height: 100%; }
+  #mainSimulator #simulatorContainer #sectionForm {
+    margin-bottom: 40px; }
+  #mainSimulator #simulatorContainer #sectionResults {
+    display: none; }
+    #mainSimulator #simulatorContainer #sectionResults h2 {
+      margin-bottom: 5%; }
+    #mainSimulator #simulatorContainer #sectionResults #resultsContainer div {
+      padding: 0px; }
+    #mainSimulator #simulatorContainer #sectionResults #resultsContainer p {
+      border-bottom: 0.5px solid gray; }
+
+#amountDiv, #termDiv {
+  position: relative; }
+
+#amountTooltip, #termTooltip, #termTooltip {
+  position: absolute; }
+  #amountTooltip .tooltip, #termTooltip .tooltip, #termTooltip .tooltip {
+    pointer-events: none; }
+
+#headboard {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+  #headboard h1 {
+    display: inline-block;
+    margin-left: 10%; }
+  #headboard #btnGroup {
+    margin-right: 50px;
+    height: 80%; }
+
+#loansTable {
+  overflow: hidden; }
+  #loansTable thead {
+    background-color: #FC2C3C; }
+  #loansTable tbody th, #loansTable tbody td {
+    padding: 0px; }
+  #loansTable tbody div {
+    height: 46px;
+    padding: 8px; }
+  #loansTable tbody .buttonsCell {
+    display: flex;
+    justify-content: center; }
+
+.modal-content {
+  position: relative; }
+  .modal-content .btn-close {
+    position: absolute;
+    top: 1em;
+    right: 1em; }
+
+#mainApplicants h1 {
+  margin-left: 10%;
+  margin-bottom: 20px; }
+
+#mainApplicants #applicantsTable {
+  overflow: hidden; }
+  #mainApplicants #applicantsTable thead {
+    background-color: #FC2C3C; }
+  #mainApplicants #applicantsTable tbody th, #mainApplicants #applicantsTable tbody td {
+    padding: 0px; }
+  #mainApplicants #applicantsTable tbody div {
+    height: 46px;
+    padding: 8px; }
+  #mainApplicants #applicantsTable tbody .buttonsCell {
+    display: flex;
+    justify-content: center; }

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlatitaYa</title>
+
+    <!--Favicon-->
+    <link rel="icon" type="image/png" href="multimedia/icon.png">
+
+    <!--CSS de Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+    <!--Estilo general del sitio-->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="container-fluid">
+        <!--Inicio de navbar de Bootstrap-->
+        <nav class="navbar navbar-expand-lg container-fluid navbar-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html">
+                    <img src="multimedia/menuLogo.png" alt="Logo del sitio" class="menuLogo">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav row text-center" style="width: 50%;">
+                        <li class="nav-item col-4">
+                            <a class="nav-link text-black" href="simulator.html">Simulador</a>
+                        </li>
+                        <li class="nav-item col-4">
+                            <a class="nav-link text-black" href="loans.html">Préstamos</a>
+                        </li>
+                        <li class="nav-item col-4">
+                            <a class="nav-link text-black" href="applicants.html">Solicitantes</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!--Fin de navbar de Bootstrap-->
+    </header>
+    
+    <main id="homeMain">
+        <div id="contenedorTitulo">
+            <h1>PlatitaYa</h1>
+            <p>Llevamos platita calentita a la puerta de tu casa.</p>
+            <p>Dos tipos de préstamos disponibles.</p>
+        </div>
+        <div id="contenedorPrestamoSimple">
+            <h2>Préstamo Simple</h2>
+            <p>Préstamo en que el capital solicitado se divide en partes iguales en todas las cuotas. Además se paga el interés correspondiente a cada mensualidad.</p>
+            <p>En las primeras cuotas se paga más y en las útimas menos.</p>
+        </div>
+        <div id="contenedorPrestamoAmericano">
+            <h2>Préstamo Americano</h2>
+            <p>Préstamo en que el capital solicitado se paga en su totalidad en la últimacuota y en el resto solo se pagan intereses, por ello la última cuota es muy superior a las demás.</p>
+            <p>Basado en la amortización americana.</p>
+        </div>
+    </main>
+
+    <!--Script de Bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+</body>
+</html>

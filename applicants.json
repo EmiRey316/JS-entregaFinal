@@ -1,0 +1,8 @@
+[{"id":1, "name":"Bruno Díaz", "gender":"male", "yearOfBirth":1939},
+{"id":2, "name":"Peter Parker", "gender":"female", "yearOfBirth":1962},
+{"id":3, "name":"Barbara Gordon", "gender":"male", "yearOfBirth":1961},
+{"id":4, "name":"Diego de la Vega", "gender":"male", "yearOfBirth":1919},
+{"id":5, "name":"Clark Kent", "gender":"male", "yearOfBirth":1938},
+{"id":6, "name":"Diana Prince", "gender":"female", "yearOfBirth":1941},
+{"id":7, "name":"Anthony Stark", "gender":"male", "yearOfBirth":1963},
+{"id":8, "name":"Steve Rogers", "gender":"female", "yearOfBirth":1941}]

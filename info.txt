@@ -1,0 +1,12 @@
+//
+//              SISTEMA DE SIMULACIÓN DE PRÉSTAMOS
+//
+//  2 tipo de préstamos habilitados:
+//  
+//  - Préstamo Simple: Préstamo en que el capital solicitado se divide en partes iguales en todas las cuotas.
+//                      Además se paga el interés correspondiente a cada mensualidad.
+//                      En las primeras cuotas se paga más y en las útimas menos.
+//
+//  - Loan Americano: Préstamo en que el capital solicitado se paga en su totalidad en la últimacuota y en el
+//                         resto solo se pagan intereses, por ello la última cuota es muy superior a las demás.
+//

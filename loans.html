@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlatitaYa</title>
+
+    <!--Favicon-->
+    <link rel="icon" type="image/png" href="multimedia/icon.png">
+
+    <!--CSS de Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    
+    <!--Estilo general del sitio-->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body id="loansPage">
+    <header class="container-fluid">
+        <!--Inicio de navbar de Bootstrap-->
+        <nav class="navbar navbar-expand-lg container-fluid navbar-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html">
+                    <img src="multimedia/menuLogo.png" alt="Logo del sitio" class="menuLogo">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav row text-center" style="width: 50%;">
+                        <li class="nav-item col-4">
+                            <a class="nav-link text-black" href="simulator.html">Simulador</a>
+                        </li>
+                        <li class="nav-item col-4">
+                            <a class="nav-link text-black" href="loans.html">Préstamos</a>
+                        </li>
+                        <li class="nav-item col-4">
+                            <a class="nav-link text-black" href="applicants.html">Solicitantes</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!--Fin de navbar de Bootstrap-->
+    </header>
+
+
+    <main id="mainLoans">
+        <div id="headboard">
+            <h1>Historial de préstamos</h1>
+            <div id="btnGroup" class="btn-group" role="group">
+                <button type="button" id="printActiveBtn" class="btn btn-outline-secondary active">Activos</button>
+                <button type="button" id="printDeletedBtn" class="btn btn-outline-secondary">Eliminados</button>
+            </div>
+        </div>
+        <section id="sectionTable">
+            <div class="table-responsive container-fluid">
+                <table id="loansTable" class="table text-center table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Monto</th>
+                            <th scope="col">Plazo</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="loansTableBody">
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        
+        <!--Modal con la tabla de cuotas-->
+        <div class="modal fade" id="amortizationModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h3>Tabla de Amortización:</h3>
+                    <table id="amortizationTable" class="table text-center table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Cuota</th>
+                                <th scope="col">Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody id="amortizationTableBody">
+    
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+
+    <!--Script de Bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+    <!--Script de JQuery-->
+    <script src="js/jquery-3.6.0.js"></script>
+    
+    <!--Script general del sitio-->
+    <script src="js/main.js"></script>
+    
+</body>
+</html>
