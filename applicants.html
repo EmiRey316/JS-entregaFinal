@@ -15,7 +15,7 @@
     <!--Estilo general del sitio-->
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body id="applicantsPage">
     <header class="container-fluid">
         <!--Inicio de navbar de Bootstrap-->
         <nav class="navbar navbar-expand-lg container-fluid navbar-light">
@@ -65,9 +65,32 @@
                 </table>
             </div>
         </section>
+
+        <!--Modal con la tabla de cuotas-->
+        <div class="modal fade" id="loansModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h3>Préstamos del solicitante:</h3>
+                    <table id="applicantLoansTable" class="table text-center table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Monto</th>
+                                <th scope="col">Plazo</th>
+                            </tr>
+                        </thead>
+                        <tbody id="applicantLoansTableBody">
+                            <!--Espacio en el que se cargarán los préstamos del solicitante a través de JS-->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div> 
     </main>
 
-    <!--Scripts de Bootstrap-->
+    <!--Script de Bootstrap-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
 
     <!--Script de JQuery-->

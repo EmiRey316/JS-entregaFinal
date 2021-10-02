@@ -45,6 +45,12 @@ header {
   height: 100%; }
   #mainSimulator #simulatorContainer #sectionForm {
     margin-bottom: 40px; }
+    #mainSimulator #simulatorContainer #sectionForm #amountInputContainer, #mainSimulator #simulatorContainer #sectionForm #termInputContainer {
+      position: relative; }
+    #mainSimulator #simulatorContainer #sectionForm #amountTooltip, #mainSimulator #simulatorContainer #sectionForm #termTooltip, #mainSimulator #simulatorContainer #sectionForm #termTooltip {
+      position: absolute; }
+      #mainSimulator #simulatorContainer #sectionForm #amountTooltip .tooltip, #mainSimulator #simulatorContainer #sectionForm #termTooltip .tooltip, #mainSimulator #simulatorContainer #sectionForm #termTooltip .tooltip {
+        pointer-events: none; }
   #mainSimulator #simulatorContainer #sectionResults {
     display: none; }
     #mainSimulator #simulatorContainer #sectionResults h2 {
@@ -53,14 +59,6 @@ header {
       padding: 0px; }
     #mainSimulator #simulatorContainer #sectionResults #resultsContainer p {
       border-bottom: 0.5px solid gray; }
-
-#amountDiv, #termDiv {
-  position: relative; }
-
-#amountTooltip, #termTooltip, #termTooltip {
-  position: absolute; }
-  #amountTooltip .tooltip, #termTooltip .tooltip, #termTooltip .tooltip {
-    pointer-events: none; }
 
 #headboard {
   margin-bottom: 20px;

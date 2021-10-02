@@ -4,8 +4,10 @@
 
 //Creo la clase global Loan, que contiene los parámetros y métodos generales de todos los tipos de préstamos.
 class lending {
-    constructor (id, productType, amount, term) {
+    constructor (id, applicantId, applicant, productType, amount, term) {
         this.id = id;
+        this.applicantId = applicantId;
+        this.applicant = applicant;
         this.productType = productType;
         this.amount = amount;
         this.term = term;
@@ -30,7 +32,6 @@ class simpleLending extends lending {
     loadFees() {
         //Defino la variable balance, como el saldo de capital que falta pagar.
         let balance = this.amount;
-
         let monthlyPayment = this.amount / this.term;
 
         //Ciclo que calcula y carga en la colección el valor de cada cuota. Además va sumando el totalPayment.
@@ -38,10 +39,9 @@ class simpleLending extends lending {
             let feeInterest = this.interest(balance, anualRateSimple);
             let feeValue = monthlyPayment + feeInterest;
             this.totalPayment = this.totalPayment + feeValue;
-
             this.saveFee(feeValue);
-            
-            //Actualizo el saldo.
+
+            //Por último actualizo el saldo.
             balance = balance - monthlyPayment;
         }
     }
@@ -70,7 +70,7 @@ class americanLending extends lending {
 
 
 /**************************************************************
-*                    CONSTANTES Y VARIABLES
+*               CONSTANTES Y VARIABLES GLOBALES
 **************************************************************/
 
 const anualRateSimple = 40;
@@ -82,26 +82,26 @@ const anualRateAmerican = 50;
 *                          FUNCIONES
 **************************************************************/
 
-//Función de Bootstrap para activar los tooltips.
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();   
-});
-
-
 //Función para transformar un valor númerico en formato de moneda.
 const valueToCurrency = (value) => {
     return new Intl.NumberFormat('es-UY', {style: 'currency',currency: 'UYU', minimumFractionDigits: 2}).format(value);
 }
 
 
-//Función para cargar y guardar en storage los datos de un préstamo.
-const saveLoan = (e) => {
-    //Variable para guardar el último ID creado y cargado en el storage.
-    let lastID = 0;
+//Función para posicionar el Tooltip sobre un slider.
+const rangePosition = (selector) => {
+    let range = selector.attr("max") - selector.attr("min");
+    return (selector.val() - selector.attr("min")) * selector.width() / range;
+}
 
-    //Creo la variable que será utilizada para crear el objeto préstamo según el tipo y el array que los contendrá.
+
+//Función para cargar y guardar en storage los datos de un préstamo.
+const saveLoan = () => {
     let loan;
     let loanCollection = [];
+
+    //Inicializo la variable para guardar el último ID creado y cargado en el storage.
+    let lastID = 0;
 
     //Si ya existe un historial de préstamos en el storage, traigo el ID del último elemento y el array. Con esto me aseguro de no repetir ID.
     if ((JSON.parse(localStorage.getItem("loans")) == null) || (JSON.parse(localStorage.getItem("loans")).length == 0)) {
@@ -113,15 +113,16 @@ const saveLoan = (e) => {
 
     let amount = Number($("#amountSlider").val());
     let term = Number($("#termSlider").val());
+    let applicantId = $("#applicantsList").val();
     
     //Primero creo el objeto con la clase correspondiente al tipo de producto, usando roro.
     switch ($(`#productType`).val()) {
         case "simple":
-            loan = new simpleLending(lastID + 1, "Simple", amount, term);
+            loan = new simpleLending(lastID + 1, applicantId, $(`#${applicantId}`).text(), "Simple", amount, term);
             break;
-    
+
         default:
-            loan = new americanLending(lastID + 1, "Americano", amount, term);
+            loan = new americanLending(lastID + 1, applicantId, $(`#${applicantId}`).text(), "Americano", amount, term);
     }
 
     //Genero las cuotas y el pago total del préstamo.
@@ -136,14 +137,14 @@ const saveLoan = (e) => {
 }
 
 
-//Muestro el resultado de la solicitud de préstamo, con JQuery.
+//Muestro el resultado de la solicitud de préstamo, con los detalles de los cálculos.
 const showResults = (loan) => {
     $("#showAmount").text(valueToCurrency(loan.amount));
     $("#showTerm").text(`${loan.term} cuotas`);
     $("#showFee").text(valueToCurrency(loan.quotas[0]));
     $("#showTotalPayment").text(valueToCurrency(loan.totalPayment));
 
-    //Datos mostrados según tipo de préstamo.
+    //Datos que se muestran según el tipo de préstamo.
     switch (loan.productType) {
         case "Simple":
             $("#showProductType").text("Simple");
@@ -169,14 +170,14 @@ const loansTableCreate = (type) => {
                 loansToPrint = loanCollection.filter(e => e.status == "active");
                 break;
         
-            default:
+            case "deleted":
                 loansToPrint = loanCollection.filter(e => e.status == "deleted");
                 break;
         }
     }
 
-    //Primero elimino los datos que pudiesen existir previamente.
-    $("#loansTableBody").text("");
+    //Primero elimino los datos que pudiesen existir previamente, al cambiar entre Activos y Eliminados.
+    $("#loansTableBody").empty();
 
     //Creando cada fila de la tabla por cada loan del historial.
     if (loansToPrint == null || loansToPrint.length == 0) {
@@ -191,6 +192,9 @@ const loansTableCreate = (type) => {
                         <div>${e.id}</div>
                     </th>
                     <td>
+                        <div>${e.applicant}</div>
+                    </td>
+                    <td>
                         <div>${e.productType}</div>
                     </td>
                     <td>
@@ -201,10 +205,10 @@ const loansTableCreate = (type) => {
                     </td>
                     <td>
                         <div class="buttonsCell">
-                            <button data-bs-toggle="modal" data-bs-target="#amortizationModal" onclick="viewLoan(${e.id})" data-toggle="tooltip" data-placement="top" title="Ver cuotas" data-animation="true">
+                            <button data-bs-toggle="modal" data-bs-target="#amortizationModal" onclick="viewLoan(${e.id})" title="Ver cuotas">
                                 <img src="multimedia/view.png" alt="View button">
                             </button>
-                            <button class="deleteBtn" onclick="deleteLoan(${e.id})" data-toggle="tooltip" data-placement="top" title="Eliminar" data-animation="true">
+                            <button class="deleteBtn" onclick="deleteLoan(${e.id})" title="Eliminar">
                                 <img src="multimedia/delete.png" alt="Delete button">
                             </button>
                         </div>
@@ -224,20 +228,20 @@ const loansTableCreate = (type) => {
 const viewLoan = (id) => {
     let loanCollection = JSON.parse(localStorage.getItem("loans"));
     let loanToview = loanCollection.find(e => e.id == id);
-    //Primero borro la información que pudiese haber quedado.
-    $("#amortizationTableBody").text("");
+    //Primero borro la información que pudiese haber quedado de un préstamo anterior.
+    $("#amortizationTableBody").empty();
 
     let amortizationFees = loanToview.quotas;
-
+    
     //Creo la tabla que mostrará las cuotas del préstamo.
-    amortizationFees.forEach(e => {
+    for (let i = 0; i < amortizationFees.length; i++) {
         $("#amortizationTableBody").append(`
             <tr>
-                <th scope="row">${amortizationFees.indexOf(e) + 1}</th>
-                <td>${valueToCurrency(e)}</td>
+                <th scope="row">${i + 1}</th>
+                <td>${valueToCurrency(amortizationFees[i])}</td>
             </tr>
         `);
-    })
+    }
 }
 
 
@@ -287,7 +291,8 @@ const deleteLoan = (id) => {
 
 
 //Creación de tabla con el solicitantes traidos de la API.
-const applicantsTableCreate = (applicant, applicantId) => {
+const applicantsTableCreate = (applicant) => {
+
     //Función interna para pasar a español el genero que viene de la API
     const genderToSpanish = (gender) => {
         let genderInSpanish;
@@ -304,7 +309,7 @@ const applicantsTableCreate = (applicant, applicantId) => {
         return genderInSpanish;
     }
     
-    //Función interna para calcular la edad actual a través de año de nacimiento que trae la API. Desconocida para los que no tienen.
+    //Función interna para calcular la edad actual a través de año de nacimiento que trae la API.
     const age = (yearOfBirth) => {
         let actualDate = new Date();
         let actualYear = actualDate.getFullYear();
@@ -329,7 +334,7 @@ const applicantsTableCreate = (applicant, applicantId) => {
             </td>
             <td>
                 <div class="buttonsCell">
-                    <button>
+                    <button data-bs-toggle="modal" data-bs-target="#loansModal" onclick="viewApplicantLoans(${applicant.id})" title="Ver préstamos">
                         <img src="multimedia/view.png" alt="View button">
                     </button>
                 </div>
@@ -339,10 +344,25 @@ const applicantsTableCreate = (applicant, applicantId) => {
 }
 
 
-//Función para posicionar el Tooltip sobre un slider.
-const rangePosition = (selector) => {
-    let range = selector.attr("max") - selector.attr("min");
-    return (selector.val() - selector.attr("min")) * selector.width() / range;
+//Función para ver los préstamos de un solicitante en concreto, al presionar el botón "Ver". Se mostrará en un modal.
+const viewApplicantLoans = (applicantId) => {
+    let loanCollection = JSON.parse(localStorage.getItem("loans"));
+    let loansToview = loanCollection.filter(e => e.applicantId == applicantId);
+
+    //Primero borro la información que pudiese haber quedado de otro solicitante.
+    $("#applicantLoansTableBody").empty();
+
+    //Creo la tabla que mostrará los préstamos del solicitante.
+    loansToview.forEach(e => {
+        $("#applicantLoansTableBody").append(`
+            <tr>
+                <th scope="row">${e.id}</th>
+                <td>${e.productType}</td>
+                <td>${e.amount}</td>
+                <td>${e.term}</td>
+            </tr>
+        `);
+    })
 }
 
 
@@ -350,6 +370,13 @@ const rangePosition = (selector) => {
 /**************************************************************
 *                          EJECUCIÓN
 **************************************************************/
+
+//Evento con función de Bootstrap para activar los tooltips.
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+
+
 //Valor inicial y evento para mostrar el valor del slider del monto a medida que cambia.
 $(`#amountTooltipTitle`).text($(`#amountSlider`).attr("min"));
 $(`#amountSlider`).on(`input`, () => {
@@ -358,7 +385,7 @@ $(`#amountSlider`).on(`input`, () => {
     $('#amountTooltip').tooltip('show');
 })
 
-//Evento que oculta el Tooltip  al apartar el mouse.
+//Evento que oculta el Tooltip al apartar el mouse.
 $("#amountSlider").on('mouseleave', () => {
     $('#amountTooltip').tooltip('hide');
 })
@@ -390,10 +417,15 @@ $("#simulatorForm").on("submit", (e) => {
 });
 
 
-//Creación de la tabla de la página "Préstamos" al abrir.
-loansTableCreate("active");
 
-//Evento al presionar el botón para ver los préstamos activos.
+
+//Creación de la tabla de la página "Préstamos" al abrir.
+$(document).ready(function() {
+    loansTableCreate("active");   
+});
+
+
+//Evento que se ejecuta al presionar el botón para ver los préstamos activos.
 $("#printActiveBtn").on("click", () => {
     //Primero compruebo que el botón no esté activo ya, para no volver a crear la tabla.
     if (!($("#printActiveBtn").hasClass("active"))) {
@@ -404,7 +436,7 @@ $("#printActiveBtn").on("click", () => {
     }
 });
 
-//Evento al presionar el botón para ver los préstamos eliminados.
+//Evento que se ejecuta al presionar el botón para ver los préstamos eliminados.
 $("#printDeletedBtn").on("click", () => {
     //Primero compruebo que el botón no esté activo ya, para no volver a crear la tabla.
     if (!($("#printDeletedBtn").hasClass("active"))) {
@@ -415,19 +447,30 @@ $("#printDeletedBtn").on("click", () => {
 });
 
 
-//Evento que trae la info de la API y guarda los datos en la tabla cuando la página.
+
+
+//Evento que trae la info de la API, que se ejecuta tanto en la página "Solicitantes" como "Simulador".
 $(document).ready(function () {
-    //Compruebo que exista #mainApplicants para hacer la consulta solo en la página correspondiente y no consumir más recursos.
-    if ( $("#mainApplicants").length > 0 ) {
+    //Compruebo en que página me encuentro para no consumir recursos en el resto, me parece que así es la forma que funcionaría mejor.
+    if (($("#applicantsPage").length > 0) || ($("#simulatorPage").length > 0)) {
         $.ajax({
             method: "GET",
             url: "applicants.json",
             success: function(applicants) {
-                //Borro el caption que indica la carga.
-                $("#applicantsTableBodyCaption").text("");
-                for (const applicant of applicants) {
-                    applicantsTableCreate(applicant);
-                }
+                    if ($("#applicantsPage").length > 0) {
+                        //Ejecución para la página "Solicitante", comienzo borrando el caption que indica la carga.
+                        $("#applicantsTableBodyCaption").empty();
+                        for (const applicant of applicants) {
+                            applicantsTableCreate(applicant);
+                        }
+                    } else {
+                        //Ejecución de la página "Simulador"
+                        for (const applicant of applicants) {
+                            $("#applicantsList").append(`
+                                <option id=${applicant.id} value=${applicant.id}>${applicant.name}</option>
+                            `)
+                        }
+                    }
             }
         });
     }
