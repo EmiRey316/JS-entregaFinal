@@ -344,10 +344,10 @@ const applicantsTableCreate = (applicant) => {
 }
 
 
-//Función para ver los préstamos de un solicitante en concreto, al presionar el botón "Ver". Se mostrará en un modal.
+//Función para ver los préstamos de un solicitante en concreto, al presionar el botón "Ver". Se mostrará en un modal y solo los préstamos activos.
 const viewApplicantLoans = (applicantId) => {
     let loanCollection = JSON.parse(localStorage.getItem("loans"));
-    let loansToview = loanCollection.filter(e => e.applicantId == applicantId);
+    let loansToview = loanCollection.filter(e => (e.applicantId == applicantId) && (e.status == "active"));
 
     //Primero borro la información que pudiese haber quedado de otro solicitante.
     $("#applicantLoansTableBody").empty();
